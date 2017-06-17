@@ -74,6 +74,21 @@ def card_ranks(cards):
     ranks.sort(reverse=True)
     return ranks
 
+def straight(ranks):
+    "Return True if the ordered ranks form a 5-card straight."
+    current_card = ranks[0]
+    for card in ranks[1:]:
+        if card != current_card-1:
+            return False
+        current_card = card
+    return True
+
+def flush(hand):
+    "Return True if all the cards have the same suit."
+    suits = [s for r,s in hand]
+    return all(x == suits[0] for x in suits)
+
+    # Your code here.
 def test():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split() # Straight Flush
@@ -92,5 +107,16 @@ def test():
     assert hand_rank(fh) == (6, 10, 7)
     return 'tests pass'
 
+def test_hands():
+    "Test cases for the functions in poker program."
+    sf = "6C 7C 8C 9C TC".split()
+    fk = "9D 9H 9S 9C 7D".split()
+    fh = "TD TC TH 7C 7D".split()
+    assert straight([9, 8, 7, 6, 5]) == True
+    assert straight([9, 8, 8, 6, 5]) == False
+    assert flush(sf) == True
+    assert flush(fk) == False
+    return 'tests pass'
 # test()
-print(card_ranks(['AC', '3D', '4S', 'KH'])) #should output [14, 13, 4, 3]
+# print(card_ranks(['AC', '3D', '4S', 'KH'])) #should output [14, 13, 4, 3]
+print(test_hands())
