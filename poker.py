@@ -1,32 +1,7 @@
-# -----------
-# User Instructions
-#
-# Modify the hand_rank function so that it returns the
-# correct output for the remaining hand types, which are:
-# full house, flush, straight, three of a kind, two pair,
-# pair, and high card hands.
-#
-# Do this by completing each return statement below.
-#
-# You may assume the following behavior of each function:
-#
-# straight(ranks): returns True if the hand is a straight.
-# flush(hand):     returns True if the hand is a flush.
-# kind(n, ranks):  returns the first rank that the hand has
-#                  exactly n of. For A hand with 4 sevens
-#                  this function would return 7.
-# two_pair(ranks): if there is a two pair, this function
-#                  returns their corresponding ranks as a
-#                  tuple. For example, a hand with 2 twos
-#                  and 2 fours would cause this function
-#                  to return (4, 2).
-# card_ranks(hand) returns an ORDERED tuple of the ranks
-#                  in a hand (where the order goes from
-#                  highest to lowest rank).
-#
-# Since we are assuming that some functions are already
-# written, this code will not RUN. Clicking SUBMIT will
-# tell you if you are correct.
+import random
+
+#generate a card deck
+card_deck = [r+s for r in '23456789TJQKA' for s in 'SHDC']
 
 def poker(hands):
     "Return the best hand: poker([hand,...]) => [hand,...]"
@@ -130,7 +105,17 @@ def two_pair(ranks):
         return pairs
     return None
 
-    # Your code here.
+def deal(numhands, n=5, deck=card_deck):
+    """Shuffle a deck and return hands.
+       in case there is not enough card return None"""
+    if n*numhands > len(deck):
+        return None
+    random.shuffle(deck)
+    hands = []
+    for hand in range(numhands):
+        hands.append(deck[hand*n:hand*n+n])
+    return hands
+
 def test():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split() # Straight Flush
@@ -190,3 +175,4 @@ print(test_hands())
 print(test_kind())
 print(test_pairs())
 print(str(allmax([1,2,3,5,5,4,1])))
+print(str(deal(3)))
