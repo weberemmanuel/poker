@@ -53,8 +53,6 @@ def hand_rank(hand):
     else:                                          # high card
         return  (0,ranks)
 
-
-
 def card_ranks(cards):
     def card_value(card):
         """ card_value: Return card value from 2 to 14 """
@@ -72,7 +70,7 @@ def card_ranks(cards):
     "Return a list of the ranks, sorted with higher first."
     ranks = [card_value(r) for r,s in cards]
     ranks.sort(reverse=True)
-    return ranks
+    return [5,4,3,2,1] if (ranks == [14,5,4,3,2]) else ranks
 
 def straight(ranks):
     "Return True if the ordered ranks form a 5-card straight."
