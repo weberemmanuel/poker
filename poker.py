@@ -29,8 +29,22 @@
 # tell you if you are correct.
 
 def poker(hands):
-    "Return the best hand: poker([hand,...]) => hand"
-    return max(hands, key=hand_rank)
+    "Return the best hand: poker([hand,...]) => [hand,...]"
+    return allmax(hands, key=hand_rank)
+
+def allmax(iterable, key=None):
+    "Return a list of all items equal to the max of the iterable."
+    key = key or (lambda x: x)
+    max_list = []
+    max_val  = None
+    for i in iterable:
+        val = key(i)
+        if not max_val or val > max_val:
+            max_list = [i]
+            max_val = val
+        elif max_val == val:
+            max_list.append(i)
+    return max_list
 
 def hand_rank(hand):
     ranks = card_ranks(hand)
@@ -175,3 +189,4 @@ def test_pairs():
 print(test_hands())
 print(test_kind())
 print(test_pairs())
+print(str(allmax([1,2,3,5,5,4,1])))
