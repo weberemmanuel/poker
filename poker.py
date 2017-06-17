@@ -88,6 +88,21 @@ def flush(hand):
     suits = [s for r,s in hand]
     return all(x == suits[0] for x in suits)
 
+def kind(n, ranks):
+    """Return the first rank that this hand has exactly n of.
+    Return None if there is no n-of-a-kind in the hand."""
+    # Your code here.
+    freq = {}
+    for card in ranks:
+        if card in freq:
+            freq[card] += 1
+        else:
+            freq[card] = 1
+    for card in ranks:
+        if freq[card] == n:
+            return card
+    return None
+
     # Your code here.
 def test():
     "Test cases for the functions in poker program"
@@ -117,6 +132,21 @@ def test_hands():
     assert flush(sf) == True
     assert flush(fk) == False
     return 'tests pass'
+
+def test_kind():
+    "Test cases for the functions in poker program."
+    sf = "6C 7C 8C 9C TC".split() # Straight Flush
+    fk = "9D 9H 9S 9C 7D".split() # Four of a Kind
+    fh = "TD TC TH 7C 7D".split() # Full House
+    tp = "5S 5D 9H 9C 6S".split() # Two pairs
+    fkranks = card_ranks(fk)
+    tpranks = card_ranks(tp)
+    assert kind(4, fkranks) == 9
+    assert kind(3, fkranks) == None
+    assert kind(2, fkranks) == None
+    assert kind(1, fkranks) == 7
+    return 'tests pass'
 # test()
 # print(card_ranks(['AC', '3D', '4S', 'KH'])) #should output [14, 13, 4, 3]
 print(test_hands())
+print(test_kind())
