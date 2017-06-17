@@ -53,6 +53,27 @@ def hand_rank(hand):
     else:                                          # high card
         return  (0,ranks)
 
+
+
+def card_ranks(cards):
+    def card_value(card):
+        """ card_value: Return card value from 2 to 14 """
+        if card == 'T':
+            return 10
+        if card == 'J':
+            return 11
+        elif card == 'Q':
+            return 12
+        elif card == 'K':
+            return 13
+        elif card == 'A':
+            return 14
+        return int(card)
+    "Return a list of the ranks, sorted with higher first."
+    ranks = [card_value(r) for r,s in cards]
+    ranks.sort(reverse=True)
+    return ranks
+
 def test():
     "Test cases for the functions in poker program"
     sf = "6C 7C 8C 9C TC".split() # Straight Flush
@@ -71,4 +92,5 @@ def test():
     assert hand_rank(fh) == (6, 10, 7)
     return 'tests pass'
 
-test()
+# test()
+print(card_ranks(['AC', '3D', '4S', 'KH'])) #should output [14, 13, 4, 3]
