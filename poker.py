@@ -39,19 +39,19 @@ def hand_rank(hand):
     elif kind(4, ranks):                           # 4 of a kind
         return (7, kind(4, ranks), kind(1, ranks))
     elif kind(3, ranks) and kind(2, ranks):        # full house
-        return # your code here
+        return (6, kind(3, ranks), kind(2, ranks))
     elif flush(hand):                              # flush
-        return # your code here
+        return (5, ranks)
     elif straight(ranks):                          # straight
-        return # your code here
+        return (4, max(ranks))
     elif kind(3, ranks):                           # 3 of a kind
-        return # your code here
+        return (3, kind(3, ranks),ranks)
     elif two_pair(ranks):                          # 2 pair
-        return # your code here
+        return (2, two_pair(ranks),ranks)
     elif kind(2, ranks):                           # kind
-        return # your code here
+        return (1, kind(2, ranks),ranks)
     else:                                          # high card
-        return # your code here
+        return  (0,ranks)
 
 def test():
     "Test cases for the functions in poker program"
@@ -67,3 +67,5 @@ def test():
     assert hand_rank(fk) == (7, 9, 7)
     assert hand_rank(fh) == (6, 10, 7)
     return 'tests pass'
+
+test()
